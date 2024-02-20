@@ -1,6 +1,6 @@
 
 export type modal={
-    user: userDetails;
+  user: userDetails;
   onClose: () => void;
 
 }
