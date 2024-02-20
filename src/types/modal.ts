@@ -5,6 +5,7 @@ export type modal={
 
 }
 export type userDetails={
+    avatar_url: string | undefined;
     username: string;
     followers: number;
     following: number;
