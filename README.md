@@ -31,4 +31,5 @@ export default {
 
 
 ## TODO
-make your own github access token
+1. make your own github access token
+2. rename example.env to .env
