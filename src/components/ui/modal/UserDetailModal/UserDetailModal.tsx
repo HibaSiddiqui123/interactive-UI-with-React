@@ -1,49 +1,57 @@
-import { Modal, ModalClose, ModalDialog, Typography } from "@mui/joy"
+import { Avatar, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy"
 import UserApis from "../../../../apis/UserApis"
 import { useEffect, useState } from "react";
 import { userDetails } from "../../../../types/modal";
 
 
-export type UserDetailModalProps= {
+export type UserDetailModalProps = {
+  username?: string,
   open: boolean,
-  username: string,
   onClose: () => void
 }
 
-export const UserDetailModal = ({ open, onClose }: UserDetailModalProps) => {
+export const UserDetailModal = ({ open, onClose, username }: UserDetailModalProps) => {
 
 
   const [userData, setUserData] = useState<userDetails | null>(null);
+  const [loader, setLoader] = useState(false)
 
   useEffect(() => {
-    const fetchUserData = async () => {
-        const userData = await UserApis.getUsers();
+    if (username) {
+      const fetchUserData = async () => {
+        setLoader(true);
+        const userData = await UserApis.getUserData(username);
         setUserData(userData);
-    }
-    if (open) {
+        setLoader(false);
+      }
       fetchUserData();
     }
-  }, [open]);
- 
+  }, [username]);
+
   return (
     <>
-       (
-        <Modal open={open} onClose={onClose}>
+      (
+      <Modal open={open} onClose={onClose}>
         <ModalDialog>
           <ModalClose />
-            {userData ? (
+          {!loader ?
+            (userData !== null) &&
+            (
               <>
-                <img src={userData.avatar_url} alt="User Avatar" />
-                <Typography>Username: {userData.username}</Typography>
+                <Avatar src={userData.avatar_url} alt="User Avatar" size="lg" />
+                <Typography>ID: {userData.id}</Typography>
+                <Typography>Username: {userData.login}</Typography>
+                <Typography>Fullname: {userData.name}</Typography>
                 <Typography>Followers: {userData.followers}</Typography>
                 <Typography>Following: {userData.following}</Typography>
                 <Typography>Location: {userData.location}</Typography>
-              </>
-            ) : (
+                <Typography>Public Repositories: {userData.public_repos}</Typography>
+                <Typography>Public Gists: {userData.public_gists}</Typography>
+              </>):(
               <Typography>Loading...</Typography>
             )}
-          </ModalDialog>
-        </Modal>
+        </ModalDialog>
+      </Modal>
       )
     </>
   );

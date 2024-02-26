@@ -18,8 +18,7 @@ export const UserList = () => {
   const { list } = useStore(userStore, (state) => state);
   const [modal, setModal] = useState<UserDetailModalProps>({
     open: false,
-    userId: 0,
-    onClose: () => setModal(prev => ({...prev, open: false}))
+    onClose: () => setModal((prev: any) => ({...prev, open: false}))
   })
 
 
@@ -28,7 +27,7 @@ export const UserList = () => {
       <List>
         {list.map((user) => (
           <ListItem key={user.id}>
-            <ListItemButton onClick={() => setModal(prev => ({...prev, open: true, userId: user.id}))}>
+            <ListItemButton onClick={() => setModal((prev: any) => ({...prev, open: true, username: user.login}))}>
               <ListItemDecorator sx={{ marginRight: 1 }}>
                 <Avatar src={user.avatar_url} />
               </ListItemDecorator>
@@ -37,7 +36,7 @@ export const UserList = () => {
                 <Typography level="body-xs">{user.url}</Typography>
               </ListItemContent>
             </ListItemButton>
-          </ListItem>
+           </ListItem>
         ))}
       </List>
       <UserDetailModal {...modal} />

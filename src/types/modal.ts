@@ -6,11 +6,13 @@ export type modal={
 }
 export type userDetails={
     avatar_url: string | undefined;
-    username: string;
+    name: string;
     followers: number;
     following: number;
-    picture: string;
+    login: string;
     location: string;
-    fullName: string;
+    id: number;
+    public_repos: number;
+    public_gists: number
   
 }

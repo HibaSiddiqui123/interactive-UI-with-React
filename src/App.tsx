@@ -1,6 +1,6 @@
 import Layout from "./components/ui/layout";
-import Header from "./components/ui/layout/Header";
 import Content from "./components/ui/layout/Content";
+import Header from "./components/ui/layout/Header";
 import UserWidget from "./components/ui/widget/UserWidget";
 
 function App() {
